@@ -2,15 +2,24 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public SoldierPool soldierPool;
+
+    private void Start()
     {
-        
+        AddSoldier();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void AddSoldier()
     {
-        
+        GameObject soldier = soldierPool.Dequeue();
+        soldier.GetComponent<SoldierMovement>().player = gameObject.transform;
+        soldier.SetActive(true);
+    }
+
+    public void RemoveSoldier(GameObject soldier)
+    {   
+        soldier.SetActive(false);
+        soldier.transform.parent = null;
+        soldierPool.Enqueue(soldier);
     }
 }

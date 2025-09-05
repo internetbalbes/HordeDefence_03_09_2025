@@ -3,7 +3,7 @@ using TMPro;
 
 public class HealthPointsLabel : MonoBehaviour
 {
-    public LootCrate lootCrate;
+    public Health lootCrateHealth;
 
     private TextMeshProUGUI healthPointsText;
     
@@ -11,10 +11,10 @@ public class HealthPointsLabel : MonoBehaviour
     {
         healthPointsText = GetComponent<TextMeshProUGUI>();
     }
-    private void UpdateHealthPointDisplay(int healthPoints)
+    private void UpdateHealthPointDisplay()
     {
-        healthPointsText.text = healthPoints.ToString();
+        healthPointsText.text = lootCrateHealth.GetHealth().ToString();
     }
-    private void OnEnable() => lootCrate.HealthPointsChanged += UpdateHealthPointDisplay;
-    private void OnDisable() => lootCrate.HealthPointsChanged -= UpdateHealthPointDisplay;
+    private void OnEnable() => lootCrateHealth.HealthPointsChanged += UpdateHealthPointDisplay;
+    private void OnDisable() => lootCrateHealth.HealthPointsChanged -= UpdateHealthPointDisplay;
 }
