@@ -9,10 +9,22 @@ public class Player : MonoBehaviour
         AddSoldier();
     }
 
+    private void OnEnable() => Health.OnDied += HandlePawnKilled;
+    private void OnDisable() => Health.OnDied -= HandlePawnKilled;
+
+    private void HandlePawnKilled(GameObject pawn)
+    {
+        AddSoldier();
+    }
+
     private void AddSoldier()
     {
         GameObject soldier = soldierPool.Dequeue();
-        soldier.GetComponent<SoldierMovement>().player = gameObject.transform;
+
+        Vector3 spawnPos = transform.position + new Vector3(Random.Range(-2f, 2f), -0.25f, Random.Range(-2f, 2f));
+        soldier.transform.position = spawnPos;
+
+        soldier.GetComponent<SoldierMovement>().player = transform;
         soldier.SetActive(true);
     }
 

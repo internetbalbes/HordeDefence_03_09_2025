@@ -4,6 +4,7 @@ using UnityEngine.Events;
 public class Health : MonoBehaviour
 {
     public UnityAction HealthPointsChanged;
+    public static UnityAction<GameObject> OnDied;
 
     private int _healthPoints = 0;
 
@@ -19,12 +20,13 @@ public class Health : MonoBehaviour
 
         if (_healthPoints <= 0)
         {
-            Destroy();
+            Die();
         }
     }
 
-    private void Destroy()
+    private void Die()
     {
+        OnDied?.Invoke(gameObject);
         gameObject.SetActive(false);
     }
 

@@ -22,8 +22,8 @@ public class RoundManager : MonoBehaviour
         StartRound();
     }
 
-    private void OnEnable() => Pawn.OnPawnKilled += HandlePawnKilled;
-    private void OnDisable() => Pawn.OnPawnKilled -= HandlePawnKilled;
+    private void OnEnable() => Health.OnDied += HandlePawnKilled;
+    private void OnDisable() => Health.OnDied -= HandlePawnKilled;
 
     private void StartRound()
     {

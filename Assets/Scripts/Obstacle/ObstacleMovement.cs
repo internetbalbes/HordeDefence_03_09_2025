@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ObstacleMovement : Obstacle
 {
-    [SerializeField] protected const float Speed = 5f;
+    [SerializeField] protected const float Speed = 8f;
     
     private CharacterController _controller;
 
