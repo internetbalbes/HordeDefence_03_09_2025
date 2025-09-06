@@ -50,13 +50,15 @@
   <ItemGroup>
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FixedJoystick.cs" />
     <Compile Include="Assets\Scripts\Obstacle\Collision\GatesCollision.cs" />
+    <Compile Include="Assets\Scripts\RoundManager\RoundManager.cs" />
     <Compile Include="Assets\Scripts\LootCrate\HealthPointsLabel.cs" />
-    <Compile Include="Assets\Scripts\RoundManager.cs" />
     <Compile Include="Assets\Scripts\Obstacle\Obstacle.cs" />
     <Compile Include="Assets\Scripts\Player\SoldierPool.cs" />
+    <Compile Include="Assets\Scripts\RoundManager\EnemyPowerLeftDisplay.cs" />
     <Compile Include="Assets\Scripts\Obstacle\Health.cs" />
     <Compile Include="Assets\Scripts\EndZone.cs" />
     <Compile Include="Assets\Scripts\RestartGame.cs" />
+    <Compile Include="Assets\Scripts\RoundManager\EnemySpawner.cs" />
     <Compile Include="Assets\Scripts\Destroy\EnemyDestroy.cs" />
     <Compile Include="Assets\Scripts\Player\Soldier\SoldierCollision.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FloatingJoystick.cs" />
@@ -64,6 +66,7 @@
     <Compile Include="Assets\Joystick Pack\Scripts\Base\Joystick.cs" />
     <Compile Include="Assets\Scripts\Player\Soldier\SoldierMovement.cs" />
     <Compile Include="Assets\Joystick Pack\Examples\JoystickPlayerExample.cs" />
+    <Compile Include="Assets\Scripts\RoundManager\EnemyPool.cs" />
     <Compile Include="Assets\Scripts\Player\Soldier\SoldierShooting.cs" />
     <Compile Include="Assets\Scripts\Obstacle\Collision\EnemyCollision.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\VariableJoystick.cs" />
@@ -71,8 +74,7 @@
     <Compile Include="Assets\Scripts\Player\Player.cs" />
     <Compile Include="Assets\Scripts\Obstacle\Collision\LootCrateCollision.cs" />
     <Compile Include="Assets\Joystick Pack\Examples\JoystickSetterExample.cs" />
-    <Compile Include="Assets\Scripts\EnemySpawner.cs" />
-    <Compile Include="Assets\Scripts\EnemyPowerLeftDisplay.cs" />
+    <Compile Include="Assets\Scripts\RoundManager\ObstacleSpawner.cs" />
     <Compile Include="Assets\Scripts\Obstacle\ObstacleMovement.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\Player\Soldier\Soldier.cs" />
