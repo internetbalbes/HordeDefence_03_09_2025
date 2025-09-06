@@ -9,5 +9,10 @@ public class LootCrateCollision : MonoBehaviour
             Player player = FindFirstObjectByType<Player>();
             player.RemoveSoldier(soldier.gameObject);
         }
+
+        if (other.TryGetComponent<EndZone>(out EndZone endZone))
+        {
+
+        }
     }
 }

@@ -6,7 +6,7 @@ public class Health : MonoBehaviour
     public UnityAction HealthPointsChanged;
     public static UnityAction<GameObject> OnDied;
 
-    private int _healthPoints = 0;
+    private int _healthPoints = 3;
 
     public void HealthInit(int healthPoints)
     {

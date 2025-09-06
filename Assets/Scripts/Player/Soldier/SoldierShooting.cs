@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class SoldierShooting : MonoBehaviour
 {
-    private float _shootCooldown = 0.1f;
-    private int _rayDistance = 15;
+    private float _shootCooldown = 0.75f;
+    private int _rayDistance = 45;
     private int _shootDamage = 1;
 
     private float _timer = 0f;
