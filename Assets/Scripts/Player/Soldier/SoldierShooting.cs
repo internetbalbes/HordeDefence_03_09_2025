@@ -3,7 +3,7 @@ using UnityEngine;
 public class SoldierShooting : MonoBehaviour
 {
     private float _shootCooldown = 0.75f;
-    private int _rayDistance = 45;
+    private int _rayDistance = 50;
     private int _shootDamage = 1;
 
     private float _timer = 0f;
@@ -30,8 +30,8 @@ public class SoldierShooting : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, _rayDistance, shootableLayers))
         {
-            if (hit.collider.TryGetComponent<Health>(out Health obj))
-                obj.TakeDamage(_shootDamage);
+            if (hit.collider.TryGetComponent<Health>(out Health obstacle))
+                obstacle.TakeDamage(_shootDamage);
 
             shootCollisionParticles.Play();
             shootCollisionParticles.transform.position = hit.point;

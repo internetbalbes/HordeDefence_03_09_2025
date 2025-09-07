@@ -3,47 +3,47 @@ using UnityEngine.Events;
 
 public class RoundManager : MonoBehaviour
 {
-    [SerializeField] private EnemySpawner spawner;
-    [SerializeField] private EnemyPool pool;
+    private int _roundPower = 15;
+    private int _currentEnemyCount = 0;
+    private float _roundPowerMultiplier = 1.25f;
 
-    [Header("Round Settings")]
-    [SerializeField] private int baseEnemyCount = 15;
-    [SerializeField] private float growthMultiplier = 1.25f;
+    public UnityAction<int> RoundStarted;
+    public UnityAction<int> CurrentEnemiesCountChanged;
 
-    private int _currentEnemyCount;
-    private int _remainingEnemies;
-
-    public UnityAction<int> OnEnemiesRemainingChanged;
-
-    private void Start()
+    private void OnRoundStarted()
     {
-        _currentEnemyCount = baseEnemyCount;
-        pool.Prewarm(_currentEnemyCount);
-        StartRound();
+        _roundPower = Mathf.RoundToInt(_roundPower * _roundPowerMultiplier);
+        _currentEnemyCount = _roundPower;
+        CurrentEnemiesCountChanged?.Invoke(_currentEnemyCount);
+        RoundStarted?.Invoke(_roundPower);
     }
 
-    private void OnEnable() => Health.OnDied += HandlePawnKilled;
-    private void OnDisable() => Health.OnDied -= HandlePawnKilled;
-
-    private void StartRound()
+    private void OnEnemyDead(GameObject enemy)
     {
-        _remainingEnemies = _currentEnemyCount;
-        OnEnemiesRemainingChanged?.Invoke(_remainingEnemies);
-        spawner.StartSpawning(_currentEnemyCount);
-    }
+        Debug.Log("Enemy dead");
+        _currentEnemyCount--;
+        enemy.SetActive(false);
+        enemy.GetComponent<Obstacle>().GetPool().Return(enemy);
 
-    private void HandlePawnKilled(GameObject pawn)
-    {
-        pool.Return(pawn);
-
-        _remainingEnemies--;
-        OnEnemiesRemainingChanged?.Invoke(_remainingEnemies);
-
-        if (_remainingEnemies <= 0)
+        if (_currentEnemyCount <= 0)
         {
-            _currentEnemyCount = Mathf.RoundToInt(_currentEnemyCount * growthMultiplier);
-            pool.Prewarm(_currentEnemyCount);
-            StartRound();
+            OnRoundStarted();
         }
+        
+        CurrentEnemiesCountChanged?.Invoke(_currentEnemyCount);
+    }
+
+    [SerializeField] private GameManager _gameManager;
+
+    private void OnEnable()
+    {
+        _gameManager.GameStarted += OnRoundStarted;
+        EnemyHealth.Dead += OnEnemyDead;
+    }
+
+    private void OnDisable()
+    {
+        _gameManager.GameStarted -= OnRoundStarted;
+        EnemyHealth.Dead -= OnEnemyDead;
     }
 }

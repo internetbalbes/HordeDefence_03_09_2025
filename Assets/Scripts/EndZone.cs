@@ -2,5 +2,13 @@ using UnityEngine;
 
 public class EndZone : MonoBehaviour
 {
-    public RestartGame restartGame;
+    [SerializeField] private RestartGame _restartGame;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent<ObstacleMovement>(out _))
+        {
+            _restartGame.GameRestart();
+        }
+    }
 }

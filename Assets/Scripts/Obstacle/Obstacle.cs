@@ -2,10 +2,15 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    public enum ObstacleType
+    protected Pool _pool;
+
+    public void Initialize(Pool pool)
     {
-        Enemy,
-        LootCrate,
-        Gates
+        _pool = pool;
+    }
+
+    public Pool GetPool()
+    {
+        return _pool;
     }
 }

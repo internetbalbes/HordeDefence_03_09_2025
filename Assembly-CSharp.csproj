@@ -49,36 +49,37 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FixedJoystick.cs" />
-    <Compile Include="Assets\Scripts\Obstacle\Collision\GatesCollision.cs" />
+    <Compile Include="Assets\Scripts\UI\JoystickVisible.cs" />
+    <Compile Include="Assets\Scripts\GameManager\GameManager.cs" />
     <Compile Include="Assets\Scripts\RoundManager\RoundManager.cs" />
-    <Compile Include="Assets\Scripts\LootCrate\HealthPointsLabel.cs" />
+    <Compile Include="Assets\Scripts\UI\StartGameButton.cs" />
     <Compile Include="Assets\Scripts\Obstacle\Obstacle.cs" />
-    <Compile Include="Assets\Scripts\Player\SoldierPool.cs" />
     <Compile Include="Assets\Scripts\Obstacle\Health.cs" />
     <Compile Include="Assets\Scripts\EndZone.cs" />
-    <Compile Include="Assets\Scripts\RestartGame.cs" />
-    <Compile Include="Assets\Scripts\RoundManager\LootCrateSpawner\LootCratePool.cs" />
-    <Compile Include="Assets\Scripts\RoundManager\EnemySpawner\EnemyPowerLeftDisplay.cs" />
+    <Compile Include="Assets\Scripts\ObstacleSpawnTransform.cs" />
+    <Compile Include="Assets\Scripts\Obstacle\ObstacleCollision.cs" />
     <Compile Include="Assets\Scripts\Player\Soldier\SoldierCollision.cs" />
-    <Compile Include="Assets\Scripts\RoundManager\LootCrateSpawner\LootCrateSpawner.cs" />
+    <Compile Include="Assets\Scripts\Obstacle\ObstacleRaycastHandler.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FloatingJoystick.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\DynamicJoystick.cs" />
+    <Compile Include="Assets\Scripts\Obstacle\Health\EnemyHealth.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerSoldierSpawner.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Base\Joystick.cs" />
-    <Compile Include="Assets\Scripts\ScriptableObjects\Guns\Rifle.cs" />
-    <Compile Include="Assets\Scripts\Pawn\Pawn.cs" />
+    <Compile Include="Assets\Scripts\UI\EnemyPowerLeftDisplay.cs" />
+    <Compile Include="Assets\Scripts\GameManager\RestartGame.cs" />
     <Compile Include="Assets\Scripts\Player\Soldier\SoldierMovement.cs" />
     <Compile Include="Assets\Joystick Pack\Examples\JoystickPlayerExample.cs" />
     <Compile Include="Assets\Scripts\Player\Soldier\SoldierShooting.cs" />
-    <Compile Include="Assets\Scripts\Obstacle\Collision\EnemyCollision.cs" />
+    <Compile Include="Assets\Scripts\Obstacle\ObstacleCollision\EnemyCollision.cs" />
+    <Compile Include="Assets\Scripts\Obstacle\ObstacleCollision\GatesCollision.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\VariableJoystick.cs" />
     <Compile Include="Assets\Scripts\Player\Player.cs" />
-    <Compile Include="Assets\Scripts\RoundManager\EnemySpawner\EnemyPool.cs" />
-    <Compile Include="Assets\Scripts\Obstacle\Collision\LootCrateCollision.cs" />
     <Compile Include="Assets\Joystick Pack\Examples\JoystickSetterExample.cs" />
-    <Compile Include="Assets\Scripts\RoundManager\EnemySpawner\EnemySpawner.cs" />
-    <Compile Include="Assets\Scripts\ScriptableObjects\Guns\SMG.cs" />
+    <Compile Include="Assets\Scripts\Pool.cs" />
+    <Compile Include="Assets\Scripts\RoundManager\Spawner.cs" />
     <Compile Include="Assets\Scripts\Obstacle\ObstacleMovement.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\Obstacle\ObstacleCollision\LootCrateCollision.cs" />
     <Compile Include="Assets\Scripts\Player\Soldier\Soldier.cs" />
   </ItemGroup>
   <ItemGroup>

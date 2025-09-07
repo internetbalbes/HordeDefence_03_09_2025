@@ -28,8 +28,8 @@ public class PlayerMovement : MonoBehaviour
         velocity.x = moveInput * Speed;
         _rigidbody.linearVelocity = velocity;
 
-        Vector3 pos = transform.position;
-        pos.x = Mathf.Clamp(pos.x, MinAllowedPositionX, MaxAllowedPositionX);
-        transform.position = pos;
+        Vector3 position = transform.position;
+        position.x = Mathf.Clamp(position.x, MinAllowedPositionX, MaxAllowedPositionX);
+        transform.position = position;
     }
 }
