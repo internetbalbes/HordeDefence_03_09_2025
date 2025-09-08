@@ -17,12 +17,10 @@ public class Player : MonoBehaviour
         soldier.transform.position = spawnPos;
 
         soldier.GetComponent<SoldierMovement>().player = transform;
-        soldier.SetActive(true);
     }
 
     public void RemoveSoldier(GameObject soldier)
     {
-        soldier.SetActive(false);
         _pool.Return(soldier);
     }
 
@@ -33,6 +31,6 @@ public class Player : MonoBehaviour
 
     private void OnDisable()
     {
-        EnemyHealth.Dead += AddSoldier;
+        EnemyHealth.Dead -= AddSoldier;
     }
 }

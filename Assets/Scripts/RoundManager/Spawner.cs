@@ -24,6 +24,7 @@ public class Spawner : MonoBehaviour
     private void StartSpawning(int roundPower)
     {
         _isSpawning = true;
+        _spawnedCount = 0;
         _targetCount = roundPower;
         ResetSpawnTimer();
     }
@@ -51,7 +52,6 @@ public class Spawner : MonoBehaviour
         _spawnedCount++;
         obstacle.GetComponent<Obstacle>().Initialize(_pool);
         ObstacleSpawned?.Invoke(obstacle);
-        obstacle.SetActive(true);
     }
 
     private void ResetSpawnTimer()

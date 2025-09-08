@@ -2,19 +2,19 @@ using UnityEngine;
 
 public class StartGameButton : MonoBehaviour
 {
-    [SerializeField] private GameManager _gameManager;
+    [SerializeField] private RoundStarter _roundStarter;
 
     private void OnEnable()
     {
-        _gameManager.GameStarted += OnGameStarted;
+        _roundStarter.RoundStarted += OnGameStarted;
     }
 
     private void OnDisable()
     {
-        _gameManager.GameStarted -= OnGameStarted;
+        _roundStarter.RoundStarted -= OnGameStarted;
     }
 
-    private void OnGameStarted()
+    private void OnGameStarted(int integer)
     {
         gameObject.SetActive(false);
     }

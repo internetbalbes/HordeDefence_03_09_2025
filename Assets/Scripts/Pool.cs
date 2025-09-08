@@ -9,9 +9,12 @@ public class Pool : MonoBehaviour
 
     public GameObject Get()
     {
+
         if (_pool.Count == 0)
             Add();
-        return _pool.Dequeue();
+        GameObject obj = _pool.Dequeue();
+        obj.SetActive(true);
+        return obj;
     }
 
     public void Return(GameObject obj)

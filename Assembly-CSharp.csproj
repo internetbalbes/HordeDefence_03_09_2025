@@ -48,12 +48,13 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.53f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\RoundManager\GameStarter.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FixedJoystick.cs" />
     <Compile Include="Assets\Scripts\UI\JoystickVisible.cs" />
-    <Compile Include="Assets\Scripts\GameManager\GameManager.cs" />
     <Compile Include="Assets\Scripts\RoundManager\RoundManager.cs" />
     <Compile Include="Assets\Scripts\UI\StartGameButton.cs" />
     <Compile Include="Assets\Scripts\Obstacle\Obstacle.cs" />
+    <Compile Include="Assets\Scripts\RoundManager\RestartGame.cs" />
     <Compile Include="Assets\Scripts\Obstacle\Health.cs" />
     <Compile Include="Assets\Scripts\EndZone.cs" />
     <Compile Include="Assets\Scripts\ObstacleSpawnTransform.cs" />
@@ -61,12 +62,12 @@
     <Compile Include="Assets\Scripts\Player\Soldier\SoldierCollision.cs" />
     <Compile Include="Assets\Scripts\Obstacle\ObstacleRaycastHandler.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FloatingJoystick.cs" />
+    <Compile Include="Assets\Scripts\RoundManager\RoundStarter.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\DynamicJoystick.cs" />
     <Compile Include="Assets\Scripts\Obstacle\Health\EnemyHealth.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerSoldierSpawner.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Base\Joystick.cs" />
     <Compile Include="Assets\Scripts\UI\EnemyPowerLeftDisplay.cs" />
-    <Compile Include="Assets\Scripts\GameManager\RestartGame.cs" />
     <Compile Include="Assets\Scripts\Player\Soldier\SoldierMovement.cs" />
     <Compile Include="Assets\Joystick Pack\Examples\JoystickPlayerExample.cs" />
     <Compile Include="Assets\Scripts\Player\Soldier\SoldierShooting.cs" />

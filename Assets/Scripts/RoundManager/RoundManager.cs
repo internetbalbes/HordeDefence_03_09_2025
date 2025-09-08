@@ -3,47 +3,48 @@ using UnityEngine.Events;
 
 public class RoundManager : MonoBehaviour
 {
-    private int _roundPower = 15;
     private int _currentEnemyCount = 0;
-    private float _roundPowerMultiplier = 1.25f;
+    private int _currentRoundPower = 0;
 
     public UnityAction<int> RoundStarted;
     public UnityAction<int> CurrentEnemiesCountChanged;
 
-    private void OnRoundStarted()
+    private void OnStartedRound(int initialRoundPower)
     {
-        _roundPower = Mathf.RoundToInt(_roundPower * _roundPowerMultiplier);
-        _currentEnemyCount = _roundPower;
+        _currentEnemyCount = initialRoundPower;
+
         CurrentEnemiesCountChanged?.Invoke(_currentEnemyCount);
-        RoundStarted?.Invoke(_roundPower);
+        RoundStarted?.Invoke(initialRoundPower);
     }
 
     private void OnEnemyDead(GameObject enemy)
     {
-        Debug.Log("Enemy dead");
-        _currentEnemyCount--;
-        enemy.SetActive(false);
-        enemy.GetComponent<Obstacle>().GetPool().Return(enemy);
+        _currentEnemyCount -= 1;
+        Debug.Log($"Enemy died. Remaining: {_currentEnemyCount}");
+        CurrentEnemiesCountChanged?.Invoke(_currentEnemyCount);
+
+        var obstacle = enemy.GetComponent<Obstacle>();
+        obstacle.GetPool().Return(enemy);
 
         if (_currentEnemyCount <= 0)
         {
-            OnRoundStarted();
+            RoundEnded?.Invoke();
         }
-        
-        CurrentEnemiesCountChanged?.Invoke(_currentEnemyCount);
     }
 
-    [SerializeField] private GameManager _gameManager;
+    [SerializeField] private RoundStarter _roundStarter;
 
     private void OnEnable()
     {
-        _gameManager.GameStarted += OnRoundStarted;
+        _roundStarter.RoundStarted += OnStartedRound;
         EnemyHealth.Dead += OnEnemyDead;
     }
 
     private void OnDisable()
     {
-        _gameManager.GameStarted -= OnRoundStarted;
+        _roundStarter.RoundStarted -= OnStartedRound;
         EnemyHealth.Dead -= OnEnemyDead;
     }
+
+    public event System.Action RoundEnded;
 }

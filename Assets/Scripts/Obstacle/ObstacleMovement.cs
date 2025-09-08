@@ -1,17 +1,11 @@
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterController))]
-
 public class ObstacleMovement : MonoBehaviour
 {
-    [SerializeField] protected const float Speed = 8f;
-
-    private CharacterController _controller;
-
-    private void Start() => _controller = GetComponent<CharacterController>();
+    protected const float Speed = 8f;
 
     void FixedUpdate()
     {
-        _controller.Move(-transform.forward * Speed * Time.deltaTime);
+        transform.position += -transform.forward * Speed * Time.deltaTime;
     }
 }

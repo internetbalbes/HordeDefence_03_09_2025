@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Health : Obstacle
+public class Health : MonoBehaviour
 {
     private int _healthPoints = 2;
     

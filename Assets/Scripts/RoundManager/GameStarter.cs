@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class GameStarter : MonoBehaviour
 {
     [SerializeField] private Button _startGameButton;
 
