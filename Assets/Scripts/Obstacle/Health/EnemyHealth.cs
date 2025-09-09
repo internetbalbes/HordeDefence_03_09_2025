@@ -1,12 +1,20 @@
 using UnityEngine;
 using System;
 
-public class EnemyHealth : Health
+public class EnemyHealth : MonoBehaviour, IDamageable
 {
-    public static Action<GameObject> Dead;
+    public static Action Dead;
 
-    protected override void OnHealthPointsZero()
+    public int Health { get; set; } = 1;
+
+    public void TakeDamage(int damage)
     {
-        Dead?.Invoke(gameObject);
+        Health -= damage;
+
+        if (Health <= 0)
+        {
+            GetComponent<Poolable>().GetPool().Return(gameObject);
+            Dead?.Invoke();
+        }   
     }
 }

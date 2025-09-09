@@ -4,8 +4,15 @@ public class ObstacleSpawnTransform : MonoBehaviour
 {
     private readonly Vector2 _xRange = new Vector2(-3, 3);
 
-    private void OnEnable() => Spawner.ObstacleSpawned += OnObstacleSpawned;
-    private void OnDisable() => Spawner.ObstacleSpawned -= OnObstacleSpawned;
+    private void OnEnable()
+    {
+        Spawner.Spawned += OnObstacleSpawned;
+    }
+    private void OnDisable()
+    {
+        Spawner.Spawned -= OnObstacleSpawned;
+        Spawner.Spawned -= OnObstacleSpawned;
+    }
 
     private void OnObstacleSpawned(GameObject obstacle)
     {

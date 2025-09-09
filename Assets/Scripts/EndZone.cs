@@ -6,7 +6,7 @@ public class EndZone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent<ObstacleMovement>(out _))
+        if (other.TryGetComponent<EnemyHealth>(out _))
         {
             _restartGame.GameRestart();
         }

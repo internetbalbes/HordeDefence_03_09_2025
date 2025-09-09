@@ -1,22 +1,27 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Pool))]
+
 public class Player : MonoBehaviour
 {
-    [SerializeField] Pool _pool;
+    private Pool _pool { get; set; }
+
+    [SerializeField] private GameObject _soldierPrefab;
 
     private void Start()
     {
+        _pool = GetComponent<Pool>();
+        _pool = new Pool(_soldierPrefab);
+
+        SoldierMovement.SetPlayer(gameObject);
+
         AddSoldier();
     }
 
-    private void AddSoldier(GameObject enemy = null)
+    private void AddSoldier()
     {
         GameObject soldier = _pool.Get();
-
-        Vector3 spawnPos = transform.position + new Vector3(Random.Range(-2f, 2f), -0.25f, Random.Range(-2f, 2f));
-        soldier.transform.position = spawnPos;
-
-        soldier.GetComponent<SoldierMovement>().player = transform;
+        soldier.transform.position = transform.position;
     }
 
     public void RemoveSoldier(GameObject soldier)

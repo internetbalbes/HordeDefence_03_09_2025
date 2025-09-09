@@ -1,37 +1,31 @@
 using UnityEngine;
 
-public class SoldierShooting : MonoBehaviour
+public class SoldierShooting : Soldier
 {
-    private float _shootCooldown = 0.75f;
-    private int _rayDistance = 50;
-    private int _shootDamage = 1;
-
-    private float _timer = 0f;
-
     public ParticleSystem shootCollisionParticles;
-
     [SerializeField] private LayerMask shootableLayers;
+
+    private float _shootTimer = 0f;
 
     private void Update()
     {
-        _timer += Time.deltaTime;
+        _shootTimer += Time.deltaTime;
 
-        if (_timer >= _shootCooldown)
+        if (_shootTimer >= fireRate)
         {
             Shoot();
-            _timer = 0f;
+            _shootTimer = 0f;
         }
     }
 
     private void Shoot()
     {
-        Ray ray = new Ray(gameObject.transform.position, gameObject.transform.forward);
-        RaycastHit hit;
+        Ray ray = new Ray(transform.position, transform.forward);
 
-        if (Physics.Raycast(ray, out hit, _rayDistance, shootableLayers))
+        if (Physics.Raycast(ray, out RaycastHit hit, range, shootableLayers))
         {
-            if (hit.collider.TryGetComponent<Health>(out Health obstacle))
-                obstacle.TakeDamage(_shootDamage);
+            if (hit.collider.TryGetComponent<IDamageable>(out IDamageable obstacle))
+                obstacle.TakeDamage(damage);
 
             shootCollisionParticles.Play();
             shootCollisionParticles.transform.position = hit.point;
