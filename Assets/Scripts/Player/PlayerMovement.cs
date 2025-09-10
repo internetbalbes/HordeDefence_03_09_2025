@@ -6,8 +6,8 @@ public class PlayerMovement : MonoBehaviour
 {
     private const float Speed = 8f;
 
-    private const float MinAllowedPositionX = -3f;
-    private const float MaxAllowedPositionX = 3f;
+    private const float MinAllowedPositionX = -3.5f;
+    private const float MaxAllowedPositionX = 3.5f;
 
     public FloatingJoystick joystick;
 

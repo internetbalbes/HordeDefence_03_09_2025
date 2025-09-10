@@ -9,7 +9,7 @@ public class SoldierMovement : MonoBehaviour
         _player = player;
     }
 
-    private float _spread = 2f;
+    private float _spread = 3f;
 
     private Vector3 offset;
 

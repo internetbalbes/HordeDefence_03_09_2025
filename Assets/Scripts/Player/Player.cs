@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
         AddSoldier();
     }
 
-    private void AddSoldier()
+    public void AddSoldier()
     {
         GameObject soldier = _pool.Get();
         soldier.transform.position = transform.position;
