@@ -1,19 +1,23 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public abstract class ArchBase : MonoBehaviour
 {
-    protected int _initialSoldierCount = 1;
-    protected int _value = 1;
+    protected static Player _player => FindFirstObjectByType<Player>();
 
-    public abstract void OnPlayerPass(Player player);
+    public UnityAction<string, int> ValueChanged;
 
-    public virtual void OnRaycastHit() { }
+    public abstract void OnPass();
 
-    protected void SpawnSoldiers(Player player)
+    protected abstract void InitDisplay();
+
+    private void Start()
     {
-        for (int i = 0; i < _value; i++)
-        {
-            player.AddSoldier();
-        }
+        InitDisplay();
+    }
+
+    protected void NotifyValueChanged(string sign, int value)
+    {
+        ValueChanged?.Invoke(sign, value);
     }
 }

@@ -6,13 +6,19 @@ public class StaticArch : ArchBase
     public OperationType operation = OperationType.Multiply;
     public int value = 2;
 
-    public override void OnPlayerPass(Player player)
+    public override void OnPass()
     {
-        if (operation == OperationType.Multiply)
-            _value *= value;
-        else if (operation == OperationType.Divide && value != 0)
-            _value /= value;
+        if (_player == null) return;
 
-        SpawnSoldiers(player);
+        if (operation == OperationType.Multiply)
+            _player.MultiplySoldiers(value);
+        else if (operation == OperationType.Divide)
+            _player.DivideSoldiers(value);
+    }
+
+    protected override void InitDisplay()
+    {
+        string sign = operation == OperationType.Multiply ? "×" : "/";
+        NotifyValueChanged(sign, value);
     }
 }

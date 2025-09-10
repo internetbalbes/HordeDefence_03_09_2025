@@ -339,6 +339,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 1282358240233187736, guid: 1bdd0331ecf454646acc4d271d2fd78e, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1486781732457710584, guid: 1bdd0331ecf454646acc4d271d2fd78e, type: 3}
       propertyPath: m_Name
       value: Crate

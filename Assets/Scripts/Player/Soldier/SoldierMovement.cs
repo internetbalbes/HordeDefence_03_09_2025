@@ -3,35 +3,20 @@ using UnityEngine;
 public class SoldierMovement : MonoBehaviour
 {
     private static GameObject _player;
-
-    public static void SetPlayer(GameObject player)
-    {
-        _player = player;
-    }
-
-    public GameObject GetPlayer()
-    {
-        return _player;
-    }
-
+    private Vector3 _offset;
     private float _spread = 3f;
+    private float _speed = 5f;
 
-    private Vector3 offset;
+    public static void SetPlayer(GameObject player) => _player = player;
 
-    void Start()
+    private void Start()
     {
-        offset = new Vector3(
-            Random.Range(-_spread, _spread),
-            0,
-            Random.Range(-_spread, _spread)
-        );
+        _offset = new Vector3(Random.Range(-_spread, _spread), 0f, Random.Range(-_spread, _spread));
+        transform.position = _player.transform.position + _offset;
     }
 
-    void Update()
+    private void FixedUpdate()
     {
-        Vector3 targetPosition = _player.transform.position + offset;
-        Vector3 newPosition = Vector3.Lerp(transform.position, targetPosition, 0.5f);
-        newPosition.y = 0.5f;
-        transform.position = newPosition;
+        transform.position = Vector3.Lerp(transform.position, _player.transform.position, Time.deltaTime * _speed);
     }
 }

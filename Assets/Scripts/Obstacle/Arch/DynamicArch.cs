@@ -1,30 +1,27 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 public class DynamicArch : ArchBase
 {
-    public UnityAction<int> SoldierCountChanged;
+    [SerializeField] private int _soldierCountChange = 1;
 
-    public void Start()
+    public override void OnPass()
     {
-        _value = _initialSoldierCount;
-        SoldierCountChanged?.Invoke(_value);
+        if (_player == null) return;
+
+        _player.AddSoldier();
+        NotifyValueChanged(_soldierCountChange >= 0 ? "+" : "-", Mathf.Abs(_soldierCountChange));
     }
 
-    public override void OnRaycastHit()
+    public void OnRaycastHit()
     {
-        _value++;
-        SoldierCountChanged?.Invoke(_value);
+        if (_player == null) return;
+
+        _player.AddSoldier();
+        NotifyValueChanged(_soldierCountChange >= 0 ? "+" : "-", Mathf.Abs(_soldierCountChange));
     }
 
-    public override void OnPlayerPass(Player player)
+    protected override void InitDisplay()
     {
-        SpawnSoldiers(player);
-    }
-
-    private void OnEnable()
-    {
-        _value = _initialSoldierCount;
-        SoldierCountChanged?.Invoke(_value);
+        NotifyValueChanged(_soldierCountChange >= 0 ? "+" : "-", Mathf.Abs(_soldierCountChange));
     }
 }

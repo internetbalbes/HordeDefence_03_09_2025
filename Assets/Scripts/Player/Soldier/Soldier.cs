@@ -6,7 +6,7 @@ public class Soldier : MonoBehaviour
     protected float range = 15f;
     protected float fireRate = 0.5f;
 
-    private static Player _player;
+    public static Player _player;
 
     public Player GetPlayer()
     {
@@ -34,11 +34,11 @@ public class Soldier : MonoBehaviour
     {
         if (other.TryGetComponent<ArchBase>(out ArchBase arch))
         {
-            arch.OnPlayerPass(_player);
+            arch.OnPass();
         }
     }
 
-    public void Remove()
+    public void Kill()
     {
         _player.RemoveSoldier(gameObject);
     }

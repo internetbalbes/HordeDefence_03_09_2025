@@ -30,7 +30,7 @@ public class SoldierShooting : Soldier
             if (hit.collider.TryGetComponent<IDamageable>(out IDamageable obstacle))
                 obstacle.TakeDamage(damage);
 
-            if (hit.collider.TryGetComponent<ArchBase>(out ArchBase arch))
+            if (hit.collider.TryGetComponent<DynamicArch>(out DynamicArch arch))
                 arch.OnRaycastHit();
 
             // визуальная пуля

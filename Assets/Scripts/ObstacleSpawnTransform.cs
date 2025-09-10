@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ObstacleSpawnTransform : MonoBehaviour
 {
-    private readonly Vector2 _xRange = new Vector2(-3, 3);
+    private readonly Vector2 _xRange = new Vector2(-2.5f, 2.5f);
 
     private void OnEnable()
     {
@@ -10,7 +10,6 @@ public class ObstacleSpawnTransform : MonoBehaviour
     }
     private void OnDisable()
     {
-        Spawner.Spawned -= OnObstacleSpawned;
         Spawner.Spawned -= OnObstacleSpawned;
     }
 
