@@ -52,6 +52,7 @@
     <Compile Include="Assets\Scripts\Prefabs\DisplayText.cs" />
     <Compile Include="Assets\Scripts\Obstacle\ObstacleCollision\ArchCollision.cs" />
     <Compile Include="Assets\Scripts\UI\StartGameButton.cs" />
+    <Compile Include="Assets\Scripts\Player\Soldier\ShootingVisual\HitEffect.cs" />
     <Compile Include="Assets\Scripts\Obstacle\Obstacle.cs" />
     <Compile Include="Assets\Scripts\CrateGunPacker.cs" />
     <Compile Include="Assets\Scripts\EndZone.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="Assets\Scripts\ObstacleSpawnTransform.cs" />
     <Compile Include="Assets\Scripts\Player\Soldier\SoldierCollision.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FloatingJoystick.cs" />
+    <Compile Include="Assets\Scripts\Player\Soldier\ShootingVisual\BulletTracer.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\DynamicJoystick.cs" />
     <Compile Include="Assets\Scripts\Obstacle\Health\EnemyHealth.cs" />
     <Compile Include="Assets\Scripts\Obstacle\Arch\DynamicArch.cs" />
@@ -83,8 +85,8 @@
     <Compile Include="Assets\Scripts\Obstacle\Arch\ArchBase.cs" />
     <Compile Include="Assets\Scripts\Obstacle\ObstacleMovement.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
-    <Compile Include="Assets\Scripts\Obstacle\Health\CrateHealth.cs" />
     <Compile Include="Assets\Scripts\UI\RoundDurationDisplay.cs" />
+    <Compile Include="Assets\Scripts\Obstacle\Health\CrateHealth.cs" />
     <Compile Include="Assets\Scripts\Obstacle\ObstacleCollision\CrateCollision.cs" />
     <Compile Include="Assets\Scripts\Poolable.cs" />
     <Compile Include="Assets\Scripts\Obstacle\Crate\Crate.cs" />

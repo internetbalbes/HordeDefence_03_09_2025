@@ -1,11 +1,9 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 public abstract class ArchBase : MonoBehaviour
 {
-    public UnityAction<int> SoldierCountChanged;
-
-    protected int soldierCount = 1;
+    protected int _initialSoldierCount = 1;
+    protected int _value = 1;
 
     public abstract void OnPlayerPass(Player player);
 
@@ -13,14 +11,9 @@ public abstract class ArchBase : MonoBehaviour
 
     protected void SpawnSoldiers(Player player)
     {
-        for (int i = 0; i < soldierCount; i++)
+        for (int i = 0; i < _value; i++)
         {
             player.AddSoldier();
         }
-    }
-
-    private void OnEnable()
-    {
-        SoldierCountChanged?.Invoke(soldierCount);
     }
 }

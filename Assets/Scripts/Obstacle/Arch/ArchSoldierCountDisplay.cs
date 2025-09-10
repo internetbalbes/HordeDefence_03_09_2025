@@ -3,8 +3,8 @@ using TMPro;
 
 public class ArchSoldierCountDisplay : MonoBehaviour
 {
-    [SerializeField] private ArchBase _arch;
-    private TextMeshProUGUI _soldierCountText;
+    [SerializeField] private DynamicArch _arch;
+    [SerializeField] private TextMeshProUGUI _soldierCountText;
 
     private void Start()
     {
@@ -23,6 +23,9 @@ public class ArchSoldierCountDisplay : MonoBehaviour
 
     private void OnSoldierCountChanged(int soldierCount)
     {
-        _soldierCountText.text = soldierCount.ToString();
+        if (soldierCount > 0)
+            _soldierCountText.text = "+" + soldierCount.ToString();
+        if (soldierCount < 0)
+            _soldierCountText.text = "-" + soldierCount.ToString();
     }
 }

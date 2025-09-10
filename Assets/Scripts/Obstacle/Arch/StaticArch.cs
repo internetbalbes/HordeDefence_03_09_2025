@@ -9,9 +9,9 @@ public class StaticArch : ArchBase
     public override void OnPlayerPass(Player player)
     {
         if (operation == OperationType.Multiply)
-            soldierCount *= value;
+            _value *= value;
         else if (operation == OperationType.Divide && value != 0)
-            soldierCount /= value;
+            _value /= value;
 
         SpawnSoldiers(player);
     }

@@ -37,4 +37,9 @@ public class Soldier : MonoBehaviour
             arch.OnPlayerPass(_player);
         }
     }
+
+    public void Remove()
+    {
+        _player.RemoveSoldier(gameObject);
+    }
 }

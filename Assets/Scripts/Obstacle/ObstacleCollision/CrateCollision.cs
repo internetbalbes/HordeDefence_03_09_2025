@@ -9,9 +9,9 @@ public class CrateCollision : MonoBehaviour
             GetComponent<Poolable>().GetPool().Return(gameObject);
         }
 
-        if (other.TryGetComponent<Soldier>(out Soldier soldier))
+        if (other.TryGetComponent<SoldierMovement>(out SoldierMovement soldier))
         {
-            soldier.GetPlayer().RemoveSoldier(gameObject);
+            soldier.GetPlayer().GetComponent<Player>().RemoveSoldier(soldier.gameObject);
         }
     }
 }

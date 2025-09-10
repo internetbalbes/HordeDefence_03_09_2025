@@ -1,17 +1,30 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DynamicArch : ArchBase
 {
-    public int increment = 1;
+    public UnityAction<int> SoldierCountChanged;
+
+    public void Start()
+    {
+        _value = _initialSoldierCount;
+        SoldierCountChanged?.Invoke(_value);
+    }
 
     public override void OnRaycastHit()
     {
-        soldierCount += increment;
-        SoldierCountChanged?.Invoke(soldierCount);
+        _value++;
+        SoldierCountChanged?.Invoke(_value);
     }
 
     public override void OnPlayerPass(Player player)
     {
         SpawnSoldiers(player);
+    }
+
+    private void OnEnable()
+    {
+        _value = _initialSoldierCount;
+        SoldierCountChanged?.Invoke(_value);
     }
 }

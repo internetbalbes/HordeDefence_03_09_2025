@@ -9,6 +9,11 @@ public class SoldierMovement : MonoBehaviour
         _player = player;
     }
 
+    public GameObject GetPlayer()
+    {
+        return _player;
+    }
+
     private float _spread = 3f;
 
     private Vector3 offset;

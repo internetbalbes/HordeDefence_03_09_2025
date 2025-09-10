@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class SoldierShooting : Soldier
 {
-    public ParticleSystem shootCollisionParticles;
     [SerializeField] private LayerMask shootableLayers;
+    [SerializeField] private BulletTracer bulletTracer;      // готовый объект пули
+    [SerializeField] private ParticleSystem hitEffect;        // готовый объект эффекта попадания
+    [SerializeField] private float bulletSpeed = 200f;
 
     private float _shootTimer = 0f;
 
@@ -24,11 +26,21 @@ public class SoldierShooting : Soldier
 
         if (Physics.Raycast(ray, out RaycastHit hit, range, shootableLayers))
         {
+            // логика урона
             if (hit.collider.TryGetComponent<IDamageable>(out IDamageable obstacle))
                 obstacle.TakeDamage(damage);
 
-            shootCollisionParticles.Play();
-            shootCollisionParticles.transform.position = hit.point;
+            if (hit.collider.TryGetComponent<ArchBase>(out ArchBase arch))
+                arch.OnRaycastHit();
+
+            // визуальная пуля
+            bulletTracer.gameObject.SetActive(true);
+            bulletTracer.Shoot(transform.position, hit.point, bulletSpeed);
+
+            // эффект попадания / взрыва
+            hitEffect.transform.position = hit.point;
+            hitEffect.transform.rotation = Quaternion.LookRotation(hit.normal);
+            hitEffect.Play();
         }
     }
 }
