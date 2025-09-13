@@ -1,42 +1,59 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(Timer))]
 [RequireComponent(typeof(RoundDurationDisplay))]
 
 public class RoundDuration : MonoBehaviour
 {
     [SerializeField] private Run _run;
 
-    private int _roundDuration = 0;
-
-    private Timer _timer => GetComponent<Timer>();
-
     public event UnityAction<int> RoundDurationChanged;
 
     private bool _isRunning = false;
 
-    private void OnTimerComplete()
+    public static int _roundDuration = 0;
+
+    private float _timer = 0f;
+
+    private void Update()
     {
-        _roundDuration++;
-        RoundDurationChanged?.Invoke(_roundDuration);
+        if (!_isRunning) return;
+
+        _timer += Time.deltaTime;
+
+        if (_timer >= 1)
+        {
+            _timer = 0f;
+
+            _roundDuration++;
+
+            RoundDurationChanged?.Invoke(_roundDuration);
+        }
     }
 
     private void OnEnable()
     {
-        _timer.Complete += OnTimerComplete;
         _run.Started += OnRunStarted;
+        _run.Stopped += OnRunStopped;
     }
 
     private void OnDisable()
     {
-        _timer.Complete -= OnTimerComplete;
         _run.Started -= OnRunStarted;
+        _run.Stopped -= OnRunStopped;
     }
 
     private void OnRunStarted()
     {
         _isRunning = true;
-        _timer.StartTimer();
+        _timer = 0f;
+    }
+
+    private void OnRunStopped()
+    {
+        _isRunning = false;
+        _timer = 0f;
+        _roundDuration = 0;
+        RoundDurationChanged?.Invoke(_roundDuration);
     }
 }

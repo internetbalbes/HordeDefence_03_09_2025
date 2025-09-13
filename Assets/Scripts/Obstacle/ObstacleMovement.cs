@@ -2,10 +2,21 @@ using UnityEngine;
 
 public class ObstacleMovement : MonoBehaviour
 {
-    protected const float Speed = 8f;
+    private const float Speed = 6f;
 
-    void FixedUpdate()
+    private Rigidbody _rigidbody;
+
+    private void Start()
     {
-        transform.position += -transform.forward * Speed * Time.deltaTime;
+        _rigidbody = GetComponent<Rigidbody>();
+        _rigidbody.freezeRotation = true;
+
+    }
+
+    private void FixedUpdate()
+    {
+        Vector3 velocity = _rigidbody.linearVelocity;
+        velocity.z = -Speed;
+        _rigidbody.linearVelocity = velocity;
     }
 }

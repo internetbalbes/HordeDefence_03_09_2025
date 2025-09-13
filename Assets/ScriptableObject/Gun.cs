@@ -5,6 +5,6 @@ public class Gun : ScriptableObject
 {
     public int damage;
     public float fireRate;
-    public float range;
+    public int range;
     public Sprite gunImage;
 }

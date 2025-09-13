@@ -1,46 +1,63 @@
 using UnityEngine;
 
-public class SoldierShooting : Soldier
+public class SoldierShooting : MonoBehaviour
 {
-    [SerializeField] private LayerMask shootableLayers;
-    [SerializeField] private BulletTracer bulletTracer;      // готовый объект пули
-    [SerializeField] private ParticleSystem hitEffect;        // готовый объект эффекта попадания
-    [SerializeField] private float bulletSpeed = 200f;
+    [SerializeField] private ParticleSystem _hitEffect;
+    [SerializeField] private LayerMask _shootableLayers = 1 << 0;
+
+    [SerializeField] private static int _range = 15;
+    [SerializeField] private static int _damage = 1;
+    [SerializeField] private static float _fireRate = 1;
 
     private float _shootTimer = 0f;
 
-    private void Update()
+    private void FixedUpdate()
     {
         _shootTimer += Time.deltaTime;
 
-        if (_shootTimer >= fireRate)
+        if (_shootTimer >= _fireRate)
         {
             Shoot();
             _shootTimer = 0f;
         }
     }
 
+    public void EquipGun(Gun gun)
+    {
+        _damage = gun.damage;
+        _range = gun.range;
+        _fireRate = gun.fireRate;
+    }
+    
+    private void OnEnable()
+    {
+        CrateHealth.CrateDestroyed += EquipGun;
+    }
+
+    private void OnDisable()
+    {
+        CrateHealth.CrateDestroyed -= EquipGun;
+    }
+
     private void Shoot()
     {
         Ray ray = new Ray(transform.position, transform.forward);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, range, shootableLayers))
+        if (Physics.Raycast(ray, out RaycastHit hit, _range, _shootableLayers))
         {
-            // логика урона
-            if (hit.collider.TryGetComponent<IDamageable>(out IDamageable obstacle))
-                obstacle.TakeDamage(damage);
+            if (hit.collider.TryGetComponent<EnemyHealth>(out EnemyHealth obstacle))
+                obstacle.TakeDamage(_damage);
 
-            if (hit.collider.TryGetComponent<DynamicArch>(out DynamicArch arch))
-                arch.OnRaycastHit();
+            if (hit.collider.TryGetComponent<DynamicArch>(out DynamicArch dynamicBase))
+                dynamicBase.OnRaycastHit();
 
-            // визуальная пуля
-            bulletTracer.gameObject.SetActive(true);
-            bulletTracer.Shoot(transform.position, hit.point, bulletSpeed);
+            if (hit.collider.TryGetComponent<CrateHealth>(out CrateHealth crate))
+                crate.TakeDamage(_damage);
 
-            // эффект попадания / взрыва
-            hitEffect.transform.position = hit.point;
-            hitEffect.transform.rotation = Quaternion.LookRotation(hit.normal);
-            hitEffect.Play();
+
+
+            _hitEffect.transform.position = hit.point;
+            _hitEffect.Play();
         }
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 public abstract class ArchBase : MonoBehaviour
 {
-    protected static Player _player => FindFirstObjectByType<Player>();
+    protected static SoldierSpawner _soldierSpawner => FindFirstObjectByType<SoldierSpawner>();
 
     public UnityAction<string, int> ValueChanged;
 

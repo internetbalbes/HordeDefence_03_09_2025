@@ -4,28 +4,26 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private const float Speed = 8f;
-
-    private const float MinAllowedPositionX = -2.5f;
-    private const float MaxAllowedPositionX = 2.5f;
-
-    public FloatingJoystick joystick;
+    [SerializeField] private FloatingJoystick _joystick;
 
     private Rigidbody _rigidbody;
+
+    private const float MinAllowedPositionX = -4f;
+    private const float MaxAllowedPositionX = 4f;
+    private const float Speed = 8f;
 
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
         _rigidbody.freezeRotation = true;
-
+        _rigidbody.useGravity = false;
+        _rigidbody.isKinematic = false;
     }
 
     private void FixedUpdate()
     {
-        float moveInput = joystick.Horizontal;
-
         Vector3 velocity = _rigidbody.linearVelocity;
-        velocity.x = moveInput * Speed;
+        velocity.x = _joystick.Horizontal * Speed;
         _rigidbody.linearVelocity = velocity;
 
         Vector3 position = transform.position;

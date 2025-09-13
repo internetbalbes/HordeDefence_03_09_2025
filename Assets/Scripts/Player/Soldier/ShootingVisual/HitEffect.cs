@@ -2,7 +2,12 @@ using UnityEngine;
 
 public class HitEffect : MonoBehaviour
 {
-    [SerializeField] private float lifetime = 1f;
+    private float _lifetime = 1f;
+
+    private void Start()
+    {
+        gameObject.SetActive(false);
+    }
 
     public void Play(Vector3 position, Vector3 normal)
     {
@@ -10,11 +15,11 @@ public class HitEffect : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(normal);
         gameObject.SetActive(true);
         CancelInvoke();
-        Invoke(nameof(Stop), lifetime);
+        Invoke(nameof(Stop), _lifetime);
     }
 
     private void Stop()
     {
-        gameObject.SetActive(false); // выключаем эффект после жизни
+        gameObject.SetActive(false);
     }
 }

@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class RoundDurationDisplay : MonoBehaviour
 {
-    private RoundDuration _roundDuration => GetComponent<RoundDuration>();
-    private TextMeshPro _roundDurationText => GetComponent<TextMeshPro>();
+    [SerializeField] private RoundDuration _roundDuration;
+    [SerializeField] private TextMeshProUGUI _roundDurationText;
 
     private void OnEnable()
     {

@@ -3,24 +3,22 @@ using TMPro;
 
 public class ArchSoldierCountDisplay : MonoBehaviour
 {
-    [SerializeField] private ArchBase _arch;
     [SerializeField] private TextMeshProUGUI _soldierCountText;
+    private ArchBase _arch;
 
-    private void Start()
+    private void Awake()
     {
-        _soldierCountText = GetComponent<TextMeshProUGUI>();
+        _arch = GetComponent<ArchBase>();
     }
 
     private void OnEnable()
     {
-        if (_arch != null)
-            _arch.ValueChanged += OnValueChanged;
+        _arch.ValueChanged += OnValueChanged;
     }
 
     private void OnDisable()
     {
-        if (_arch != null)
-            _arch.ValueChanged -= OnValueChanged;
+        _arch.ValueChanged -= OnValueChanged;
     }
 
     private void OnValueChanged(string sign, int value)

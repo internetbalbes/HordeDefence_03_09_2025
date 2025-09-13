@@ -2,23 +2,35 @@ using UnityEngine;
 
 public class StaticArch : ArchBase
 {
-    public enum OperationType { Multiply, Divide }
-    public OperationType operation = OperationType.Multiply;
-    public int value = 2;
+    private bool isMultiplier = true;
+    private int value = 2;
+
+    private void Start()
+    {
+        isMultiplier = Random.Range(0, 2) == 0;
+        InitDisplay();
+    }
 
     public override void OnPass()
     {
-        if (_player == null) return;
+        if (isMultiplier)
+            _soldierSpawner.Multiply(value);
+        else
+            _soldierSpawner.Divide(value);
 
-        if (operation == OperationType.Multiply)
-            _player.MultiplySoldiers(value);
-        else if (operation == OperationType.Divide)
-            _player.DivideSoldiers(value);
+        Destroy(gameObject);
     }
 
     protected override void InitDisplay()
     {
-        string sign = operation == OperationType.Multiply ? "×" : "/";
-        NotifyValueChanged(sign, value);
+        NotifyValueChanged(isMultiplier ? "x" : "/", value);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent<SoldierCollision>(out SoldierCollision soldier))
+        {
+            OnPass();
+        }
     }
 }

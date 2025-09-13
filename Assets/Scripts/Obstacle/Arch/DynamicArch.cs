@@ -2,26 +2,36 @@ using UnityEngine;
 
 public class DynamicArch : ArchBase
 {
-    [SerializeField] private int _soldierCountChange = 1;
+    private int _soldierCountChange = 0;
+
+    private void Start()
+    {
+        _soldierCountChange = Random.Range(-RoundDuration._roundDuration, RoundDuration._roundDuration);
+        InitDisplay();
+    }
 
     public override void OnPass()
     {
-        if (_player == null) return;
-
-        _player.AddSoldier();
-        NotifyValueChanged(_soldierCountChange >= 0 ? "+" : "-", Mathf.Abs(_soldierCountChange));
+        _soldierSpawner.ChangeSoldierCount(_soldierCountChange);
+        Destroy(gameObject);
     }
 
     public void OnRaycastHit()
     {
-        if (_player == null) return;
-
-        _player.AddSoldier();
-        NotifyValueChanged(_soldierCountChange >= 0 ? "+" : "-", Mathf.Abs(_soldierCountChange));
+        _soldierCountChange++;
+        InitDisplay();
     }
 
     protected override void InitDisplay()
     {
         NotifyValueChanged(_soldierCountChange >= 0 ? "+" : "-", Mathf.Abs(_soldierCountChange));
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent<SoldierCollision>(out SoldierCollision soldier))
+        {
+            OnPass();
+        }
     }
 }
