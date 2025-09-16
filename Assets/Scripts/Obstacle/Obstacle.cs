@@ -4,9 +4,12 @@ public class Obstacle : MonoBehaviour
 {
     private static Run _run;
 
-    private void Start()
+    private void Awake()
     {
-        _run = FindFirstObjectByType<Run>();
+        if (_run == null)
+        {
+            _run = FindFirstObjectByType<Run>();
+        }
     }
 
     private void OnEnable()

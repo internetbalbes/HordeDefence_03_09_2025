@@ -9,7 +9,7 @@ public class SoldierSpawner : MonoBehaviour
 
     private List<GameObject> _soldiers = new List<GameObject>();
 
-    [SerializeField] private Run _run; 
+    [SerializeField] private Run _run;
 
     public event System.Action AllSoldiersDead;
 
@@ -53,7 +53,7 @@ public class SoldierSpawner : MonoBehaviour
     internal void RemoveSoldier()
     {
         GameObject soldier = _soldiers[0];
-        _soldiers.RemoveAt(0); 
+        _soldiers.RemoveAt(0);
         _soldierCount--;
         Destroy(soldier);
 
@@ -79,11 +79,23 @@ public class SoldierSpawner : MonoBehaviour
     {
         EnemyHealth.Dead += AddSoldier;
         _run.Started += AddSoldier;
+        _run.Stopped += OnRunStopped;
     }
+
     private void OnDisable()
     {
         EnemyHealth.Dead -= AddSoldier;
         _run.Started -= AddSoldier;
+        _run.Stopped += OnRunStopped;
     }
 
+    private void OnRunStopped()
+    {
+        foreach (GameObject soldier in _soldiers)
+        {
+            Destroy(soldier);
+        }
+        _soldiers.Clear();
+        _soldierCount = 0;
+    }
 }

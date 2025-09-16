@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ObstacleMovement : MonoBehaviour
 {
-    private const float Speed = 6f;
+    private const float Speed = 9f;
 
     private Rigidbody _rigidbody;
 

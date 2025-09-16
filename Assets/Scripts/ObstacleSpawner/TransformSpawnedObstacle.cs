@@ -6,7 +6,7 @@ public class TransformSpawnedObstacle : MonoBehaviour
 {
     [SerializeField] private Spawner _spawner;
 
-    private readonly Vector2 _xRange = new Vector2(-4f, 4f);
+    private readonly Vector2 _xRange = new Vector2(-2f, 2f);
 
     private void OnEnable()
     {

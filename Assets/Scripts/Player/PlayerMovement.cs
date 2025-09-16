@@ -8,8 +8,8 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody _rigidbody;
 
-    private const float MinAllowedPositionX = -4f;
-    private const float MaxAllowedPositionX = 4f;
+    private const float MinAllowedPositionX = -2f;
+    private const float MaxAllowedPositionX = 2f;
     private const float Speed = 8f;
 
     private void Start()

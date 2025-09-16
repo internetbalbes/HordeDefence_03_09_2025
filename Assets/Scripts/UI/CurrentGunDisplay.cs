@@ -1,9 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CurrentGunDisplay : MonoBehaviour
+public class CurrentGunDisplay : RunUIActive
 {
-    private Image _image => GetComponent<Image>();
+    private Image _image;
+
+    private void Start()
+    {
+        _image = GetComponent<Image>();
+    }
 
     private void OnEnable()
     {

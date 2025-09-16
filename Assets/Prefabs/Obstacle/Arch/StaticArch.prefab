@@ -251,6 +251,10 @@ PrefabInstance:
       value: StaticArch
       objectReference: {fileID: 0}
     - target: {fileID: 5445074552556684406, guid: d04aab7257c4a5043a080d8f9224e0b7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5445074552556684406, guid: d04aab7257c4a5043a080d8f9224e0b7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}

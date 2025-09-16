@@ -5,11 +5,18 @@ public class SoldierShooting : MonoBehaviour
     [SerializeField] private ParticleSystem _hitEffect;
     [SerializeField] private LayerMask _shootableLayers = 1 << 0;
 
-    [SerializeField] private static int _range = 15;
-    [SerializeField] private static int _damage = 1;
-    [SerializeField] private static float _fireRate = 1;
+    [SerializeField] private static int _range;
+    [SerializeField] private static int _damage;
+    [SerializeField] private static float _fireRate;
+
+    [SerializeField] private Gun _defaultGun;
 
     private float _shootTimer = 0f;
+
+    private void OnRunStarted()
+    {
+        EquipGun(_defaultGun);
+    }
 
     private void FixedUpdate()
     {
