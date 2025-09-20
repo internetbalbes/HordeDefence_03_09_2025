@@ -1,21 +1,76 @@
 using UnityEngine;
+using System;
 using System.Collections.Generic;
 
 public class SoldierSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject _soldierPrefab;
-
-    [SerializeField] private int _soldierCount = 0;
-
-    private List<GameObject> _soldiers = new List<GameObject>();
-
     [SerializeField] private Run _run;
+    [SerializeField] private Gun _defaultGun;
+    [SerializeField] private Spawner _spawner;
 
-    public event System.Action AllSoldiersDead;
+    public List<GameObject> _soldiers = new List<GameObject>();
 
-    private void Start()
+    public event Action AllSoldiersDead;
+    public event Action SoldiersAmountChanged;
+
+    public void RegisterEnemy(EnemyHealth enemy)
     {
-        _soldierPrefab.GetComponent<PlayerFollowing>().SetPlayer(gameObject);
+        enemy.Dead += OnEnemyDead;
+    }
+
+    private void OnEnemyDead(EnemyHealth enemy)
+    {
+        AddSoldier();
+
+        enemy.Dead -= OnEnemyDead;
+    }
+
+    public void AddSoldier()
+    {
+        GameObject soldier = Instantiate(_soldierPrefab, Vector3.zero, Quaternion.identity);
+        _soldiers.Add(soldier);
+
+        SoldiersAmountChanged?.Invoke();
+    }
+
+    internal void RemoveAtSoldier(GameObject soldier)
+    {
+        _soldiers.Remove(soldier);
+        Destroy(soldier);
+        if (_soldiers.Count == 0)
+            AllSoldiersDead?.Invoke();
+
+        SoldiersAmountChanged?.Invoke();
+    }
+
+    public void RemoveSoldier()
+    {
+        if (_soldiers.Count == 0) return;
+
+        GameObject soldier = _soldiers[0];
+        _soldiers.RemoveAt(0);
+        Destroy(soldier);
+
+        if (_soldiers.Count == 0)
+            AllSoldiersDead?.Invoke();
+
+        SoldiersAmountChanged?.Invoke();
+    }
+
+    public void Multiply(int multiplier)
+    {
+        if (multiplier < 1) return;
+        int change = _soldiers.Count * (multiplier - 1);
+        ChangeSoldierCount(change);
+    }
+
+    public void Divide(int divisor)
+    {
+        if (divisor < 1) return;
+        int newCount = Mathf.FloorToInt((float)_soldiers.Count / divisor);
+        int change = newCount - _soldiers.Count;
+        ChangeSoldierCount(change);
     }
 
     public void ChangeSoldierCount(int change)
@@ -32,70 +87,39 @@ public class SoldierSpawner : MonoBehaviour
         }
     }
 
-    [ContextMenu("AddSoldier")]
-    internal void AddSoldier()
+    private void OnRunStarted()
     {
-        _soldierCount++;
-        GameObject soldier = Instantiate(_soldierPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-        _soldiers.Add(soldier);
-    }
-
-    internal void RemoveAtSoldier(GameObject soldier)
-    {
-        _soldiers.Remove(soldier);
-        _soldierCount--;
-        Destroy(soldier);
-
-        if (_soldierCount == 0)
-            AllSoldiersDead?.Invoke();
-    }
-
-    internal void RemoveSoldier()
-    {
-        GameObject soldier = _soldiers[0];
-        _soldiers.RemoveAt(0);
-        _soldierCount--;
-        Destroy(soldier);
-
-        if (_soldierCount == 0)
-            AllSoldiersDead?.Invoke();
-    }
-
-    public void Multiply(int multiplier)
-    {
-        int newCount = _soldierCount * multiplier;
-        int change = newCount - _soldierCount;
-        ChangeSoldierCount(change);
-    }
-
-    public void Divide(int divisor)
-    {
-        int newCount = Mathf.FloorToInt((float)_soldierCount / divisor);
-        int change = newCount - _soldierCount;
-        ChangeSoldierCount(change);
-    }
-
-    private void OnEnable()
-    {
-        EnemyHealth.Dead += AddSoldier;
-        _run.Started += AddSoldier;
-        _run.Stopped += OnRunStopped;
-    }
-
-    private void OnDisable()
-    {
-        EnemyHealth.Dead -= AddSoldier;
-        _run.Started -= AddSoldier;
-        _run.Stopped += OnRunStopped;
+        _soldierPrefab.GetComponent<SoldierShooting>().EquipGun(_defaultGun);
+        AddSoldier();
     }
 
     private void OnRunStopped()
     {
-        foreach (GameObject soldier in _soldiers)
-        {
+        foreach (var soldier in _soldiers)
             Destroy(soldier);
-        }
+
         _soldiers.Clear();
-        _soldierCount = 0;
+    }
+
+    private void OnEnable()
+    {
+        _run.Started += OnRunStarted;
+        _run.Stopped += OnRunStopped;
+        _spawner.ObstacleSpawned += OnObstacleSpawned;
+    }
+
+    private void OnDisable()
+    {
+        _run.Started -= OnRunStarted;
+        _run.Stopped -= OnRunStopped;
+        _spawner.ObstacleSpawned -= OnObstacleSpawned;
+    }
+
+    private void OnObstacleSpawned(GameObject obj)
+    {
+        if (obj.TryGetComponent<EnemyHealth>(out EnemyHealth enemy))
+        {
+            RegisterEnemy(enemy);
+        }
     }
 }

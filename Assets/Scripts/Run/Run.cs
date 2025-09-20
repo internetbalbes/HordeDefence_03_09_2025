@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.Events;
 
 public class Run : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class Run : MonoBehaviour
 
     internal event Action Started;
     internal event Action Stopped;
+
+    public static Run Instance;
 
     internal void StartRun()
     {

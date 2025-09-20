@@ -3,7 +3,7 @@ using System;
 
 public class EnemyHealth : MonoBehaviour, IDamageable
 {
-    public static Action Dead;
+    public event Action<EnemyHealth> Dead;
 
     public int Health { get; set; } = 1;
 
@@ -13,8 +13,8 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
         if (Health <= 0)
         {
+            Dead?.Invoke(this);
             Destroy(gameObject);
-            Dead?.Invoke();
         }   
     }
 }

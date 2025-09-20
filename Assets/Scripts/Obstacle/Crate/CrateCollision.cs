@@ -6,7 +6,8 @@ public class CrateCollision : MonoBehaviour
 
     private void Start()
     {
-        _soldierSpawner = FindAnyObjectByType<SoldierSpawner>();
+        if (_soldierSpawner == null)
+            _soldierSpawner = FindAnyObjectByType<SoldierSpawner>();
     }
 
     private void OnTriggerEnter(Collider other)

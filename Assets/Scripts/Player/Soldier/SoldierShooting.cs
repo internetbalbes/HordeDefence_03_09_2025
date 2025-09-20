@@ -1,24 +1,22 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SoldierShooting : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _hitEffect;
     [SerializeField] private LayerMask _shootableLayers = 1 << 0;
 
-    [SerializeField] private static int _range;
-    [SerializeField] private static int _damage;
-    [SerializeField] private static float _fireRate;
-
-    [SerializeField] private Gun _defaultGun;
+    [SerializeField] private static int _range = 0;
+    [SerializeField] private static int _damage = 0;
+    [SerializeField] private static float _fireRate = 0;
 
     private float _shootTimer = 0f;
 
-    private void OnRunStarted()
-    {
-        EquipGun(_defaultGun);
-    }
+    private static Run _run;
 
-    private void FixedUpdate()
+    public static UnityAction<Gun> GunEquiped;
+
+    private void Update()
     {
         _shootTimer += Time.deltaTime;
 
@@ -34,11 +32,19 @@ public class SoldierShooting : MonoBehaviour
         _damage = gun.damage;
         _range = gun.range;
         _fireRate = gun.fireRate;
+
+        GunEquiped?.Invoke(gun);
     }
-    
+
     private void OnEnable()
     {
+        if (_run == null)
+        {
+            _run = Run.Instance;
+        }
+
         CrateHealth.CrateDestroyed += EquipGun;
+
     }
 
     private void OnDisable()

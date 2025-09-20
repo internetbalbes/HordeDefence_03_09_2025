@@ -4904,7 +4904,6 @@ GameObject:
   - component: {fileID: 5213009870631606883}
   - component: {fileID: 2954212922061709560}
   - component: {fileID: 3738634378465004317}
-  - component: {fileID: 9034393313959552534}
   - component: {fileID: 8307885880387898806}
   - component: {fileID: 3523242853670986867}
   m_Layer: 2
@@ -4924,7 +4923,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.25, y: 1, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 684888295428951476}
@@ -4999,7 +4998,6 @@ MonoBehaviour:
   _shootableLayers:
     serializedVersion: 2
     m_Bits: 1
-  _defaultGun: {fileID: 11400000, guid: e93129d5a55744e44b7157e2a4ba49ab, type: 2}
 --- !u!114 &3738634378465004317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5012,34 +5010,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51750f374db92594cab8e7e0d338092c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rigidbody: {fileID: 9034393313959552534}
---- !u!54 &9034393313959552534
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8989926685968762849}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 116
-  m_CollisionDetection: 0
 --- !u!65 &8307885880387898806
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5055,7 +5025,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

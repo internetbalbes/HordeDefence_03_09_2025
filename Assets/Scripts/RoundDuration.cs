@@ -8,6 +8,7 @@ public class RoundDuration : MonoBehaviour
     [SerializeField] private Run _run;
 
     public event UnityAction<int> RoundDurationChanged;
+    public UnityAction<int> Finished;
 
     private bool _isRunning = false;
 
@@ -51,6 +52,7 @@ public class RoundDuration : MonoBehaviour
 
     private void OnRunStopped()
     {
+        Finished?.Invoke(_roundDuration);
         _isRunning = false;
         _timer = 0f;
         _roundDuration = 0;
