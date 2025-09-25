@@ -5,13 +5,13 @@ public class Timer : MonoBehaviour
 {
     [SerializeField] private Run _run;
 
+    [SerializeField] private float _duration = 1f;
+
     private bool _isRunning = false;
 
     public event Action Updated;
 
     private float _timer;
-    private float _duration = 1f;
-    private float _currentDuration;
 
     private void Update()
     {
@@ -19,11 +19,9 @@ public class Timer : MonoBehaviour
 
         _timer += Time.deltaTime;
 
-        if (_timer >= _currentDuration)
+        if (_timer >= _duration)
         {
             _timer = 0f;
-
-            _currentDuration = _duration;
 
             Updated?.Invoke();
         }
@@ -39,6 +37,11 @@ public class Timer : MonoBehaviour
     {
         _run.Started -= OnRunStarted;
         _run.Stopped -= OnRunStopped;
+    }
+
+    internal void IsRunning(bool isRunning)
+    {
+        _isRunning = isRunning;
     }
 
     private void OnRunStarted()

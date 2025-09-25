@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyCollision : MonoBehaviour
+public class BossCollision : MonoBehaviour
 {
     private static SoldierSpawner _soldierSpawner;
 
@@ -15,7 +15,6 @@ public class EnemyCollision : MonoBehaviour
         if (other.TryGetComponent<SoldierCollision>(out SoldierCollision soldier))
         {
             _soldierSpawner.RemoveAtSoldier(soldier.gameObject);
-            Destroy(gameObject);
         }
     }
 }

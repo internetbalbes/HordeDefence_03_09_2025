@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class CrateHealth : Crate
+public class CrateHealth : Crate, IDamageable
 {
     public UnityAction<int> CrateDamaged;
     public static UnityAction<Gun> CrateDestroyed;
@@ -10,11 +10,11 @@ public class CrateHealth : Crate
 
     private void Start()
     {
-        Health = RoundDuration._roundDuration;
+        InitializeHealth(RoundDuration.Instance.Duration);
         CrateDamaged?.Invoke(Health);
     }
 
-    public void SetHealthPoints(int health)
+    public void InitializeHealth(int health)
     {
         Health = health;
         CrateDamaged?.Invoke(Health);

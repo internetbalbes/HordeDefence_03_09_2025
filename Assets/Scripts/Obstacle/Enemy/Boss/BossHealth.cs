@@ -1,12 +1,12 @@
 using UnityEngine;
 using System;
 
-public class EnemyHealth : MonoBehaviour, IDamageable
+public class BossHealth : MonoBehaviour, IDamageable
 {
-    public event Action<EnemyHealth> Dead;
+    public static event Action Dead;
 
     public int Health { get; set;}
-    
+
     private void Start()
     {
         InitializeHealth(RoundDuration.Instance.Duration);
@@ -14,16 +14,23 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     public void InitializeHealth(int health)
     {
-        Health = Mathf.Max(1, Mathf.FloorToInt(health / 30f));
+        Health = health;
     }
 
     public void TakeDamage(int damage)
     {
-        Health -= damage;
+        if (damage > 0)
+        {
+            Health -= damage;
+        }
+        else
+        {
+            Debug.LogWarning("Damage variable is positive");
+        }
 
         if (Health <= 0)
         {
-            Dead?.Invoke(this);
+            Dead?.Invoke();
             Destroy(gameObject);
         }
     }

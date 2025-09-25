@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class CurrentGunDisplay : RunUIActive
 {
+    [SerializeField] private SoldierEquipment _soldierEquipment;
+
     private Image _image;
 
     private void Start()
@@ -12,16 +14,16 @@ public class CurrentGunDisplay : RunUIActive
 
     private void OnEnable()
     {
-        CrateHealth.CrateDestroyed += UpdateImage;
+        _soldierEquipment.GunEquiped += UpdateImage;
     }
 
     private void OnDisable()
     {
-        CrateHealth.CrateDestroyed -= UpdateImage;
+        _soldierEquipment.GunEquiped -= UpdateImage;
     }
 
-    private void UpdateImage(Gun gun)
+    private void UpdateImage(Sprite gunImage)
     {
-        _image.sprite = gun.gunImage;
+        _image.sprite = gunImage;
     }
 }

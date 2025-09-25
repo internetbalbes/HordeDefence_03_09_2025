@@ -5,9 +5,9 @@ public class SoldierEquipment : MonoBehaviour
 {
     public static SoldierEquipment Instance { get; private set; }
 
-    public static UnityAction<Gun> GunEquiped;
+    public event UnityAction<Sprite> GunEquiped;
 
-    private static Run _run;
+    [SerializeField] private Run _run;
 
     [SerializeField] private Gun _defaultGun;
 
@@ -30,23 +30,17 @@ public class SoldierEquipment : MonoBehaviour
         _range = gun.range;
         _fireRate = gun.fireRate;
 
-        GunEquiped?.Invoke(gun);
-    }
-
-    private void OnRunStarted()
-    {
-        EquipGun(_defaultGun);
+        GunEquiped?.Invoke(gun.gunImage);
     }
 
     private void OnEnable()
     {
+        EquipGun(_defaultGun);
         CrateHealth.CrateDestroyed += EquipGun;
-        _run.Started += OnRunStarted;
     }
 
     private void OnDisable()
     {
         CrateHealth.CrateDestroyed -= EquipGun;
-        _run.Started -= OnRunStarted;
     }
 }

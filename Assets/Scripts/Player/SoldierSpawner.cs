@@ -8,7 +8,7 @@ public class SoldierSpawner : MonoBehaviour
     [SerializeField] private Run _run;
     [SerializeField] private Spawner _spawner;
 
-    private int _soldiersMaximumAmount = 32;
+    private int _soldiersMaximumAmount = 30;
 
     public List<GameObject> _soldiers = new List<GameObject>();
 
@@ -65,13 +65,6 @@ public class SoldierSpawner : MonoBehaviour
             AllSoldiersDead?.Invoke();
 
         SoldiersAmountChanged?.Invoke();
-    }
-
-    public void Multiply(int multiplier)
-    {
-        if (multiplier < 1) return;
-        int change = _soldiers.Count * (multiplier - 1);
-        ChangeSoldierCount(change);
     }
 
     public void Divide(int divisor)

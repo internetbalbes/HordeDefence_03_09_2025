@@ -1,14 +1,19 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 public class SoldierShooting : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _hitEffect;
     [SerializeField] private LayerMask _shootableLayers = 1 << 0;
 
-    private SoldierEquipment _soldierEquipment;
+    private static SoldierEquipment _soldierEquipment;
 
     private float _shootTimer = 0f;
+
+    private void Awake()
+    {
+        if (_soldierEquipment == null)
+            _soldierEquipment = SoldierEquipment.Instance;
+    }
 
     private void Update()
     {
@@ -27,16 +32,11 @@ public class SoldierShooting : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit, _soldierEquipment.Range, _shootableLayers))
         {
-            if (hit.collider.TryGetComponent<EnemyHealth>(out EnemyHealth obstacle))
-                obstacle.TakeDamage(_soldierEquipment.Damage);
-
             if (hit.collider.TryGetComponent<DynamicArch>(out DynamicArch dynamicBase))
                 dynamicBase.OnRaycastHit();
 
-            if (hit.collider.TryGetComponent<CrateHealth>(out CrateHealth crate))
-                crate.TakeDamage(_soldierEquipment.Damage);
-
-
+            if (hit.collider.TryGetComponent<IDamageable>(out IDamageable damageableObject))
+                damageableObject.TakeDamage(_soldierEquipment.Damage);
 
             _hitEffect.transform.position = hit.point;
             _hitEffect.Play();

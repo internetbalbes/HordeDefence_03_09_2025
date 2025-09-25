@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ObstacleMovement : MonoBehaviour
 {
-    private const float Speed = 9f;
+    [SerializeField] private float _speed = 9f;
 
     private Rigidbody _rigidbody;
 
@@ -10,13 +10,12 @@ public class ObstacleMovement : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody>();
         _rigidbody.freezeRotation = true;
-
     }
 
     private void FixedUpdate()
     {
         Vector3 velocity = _rigidbody.linearVelocity;
-        velocity.z = -Speed;
+        velocity.z = -_speed;
         _rigidbody.linearVelocity = velocity;
     }
 }

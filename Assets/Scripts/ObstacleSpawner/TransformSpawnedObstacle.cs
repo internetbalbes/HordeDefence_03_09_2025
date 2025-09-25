@@ -5,17 +5,20 @@ using UnityEngine;
 public class TransformSpawnedObstacle : MonoBehaviour
 {
     [SerializeField] private Spawner _spawner;
+    [SerializeField] private BossSpawner _bossSpawner;
 
     private readonly Vector2 _xRange = new Vector2(-2f, 2f);
 
     private void OnEnable()
     {
         _spawner.ObstacleSpawned += TransformObstacle;
+        _bossSpawner.Spawned += TransformObstacle;
     }
 
     private void OnDisable()
     {
         _spawner.ObstacleSpawned -= TransformObstacle;
+        _bossSpawner.Spawned -= TransformObstacle;
     }
 
     private void TransformObstacle(GameObject obstacle)

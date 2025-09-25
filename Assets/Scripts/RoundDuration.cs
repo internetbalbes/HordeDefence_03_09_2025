@@ -1,15 +1,18 @@
 using UnityEngine;
-using UnityEngine.Events;
+using System;
 
 public class RoundDuration : MonoBehaviour
 {
     [SerializeField] private Run _run;
 
-    public event UnityAction Changed;
+    public static RoundDuration Instance;
+
+    public event Action Changed;
 
     private bool _isRunning = false;
 
-    public static int _roundDuration = 0;
+    private int _roundDuration = 0;
+    public int Duration => _roundDuration;
 
     private float _timer = 0f;
 
@@ -27,6 +30,11 @@ public class RoundDuration : MonoBehaviour
 
             Changed?.Invoke();
         }
+    }
+
+    private void Awake()
+    {
+        Instance = this;
     }
 
     private void OnEnable()
