@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95ff1b4da202f8542846af381518cae3, type: 3}
   m_Name: Skin1
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
-  price: 0
+  prefab: {fileID: 3845699925858832406, guid: 69a7030cae82d9a44ae884072306d04a, type: 3}
+  price: 250

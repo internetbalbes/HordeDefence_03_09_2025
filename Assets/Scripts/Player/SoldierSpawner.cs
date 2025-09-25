@@ -6,13 +6,15 @@ public class SoldierSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject _soldierPrefab;
     [SerializeField] private Run _run;
-    [SerializeField] private Gun _defaultGun;
     [SerializeField] private Spawner _spawner;
+
+    private int _soldiersMaximumAmount = 32;
 
     public List<GameObject> _soldiers = new List<GameObject>();
 
     public event Action AllSoldiersDead;
     public event Action SoldiersAmountChanged;
+    public event Action AmountLimiterTriggered;
 
     public void RegisterEnemy(EnemyHealth enemy)
     {
@@ -28,10 +30,17 @@ public class SoldierSpawner : MonoBehaviour
 
     public void AddSoldier()
     {
-        GameObject soldier = Instantiate(_soldierPrefab, Vector3.zero, Quaternion.identity);
-        _soldiers.Add(soldier);
+        if (_soldiers.Count < _soldiersMaximumAmount)
+        {
+            GameObject soldier = Instantiate(_soldierPrefab, Vector3.zero, Quaternion.identity);
+            _soldiers.Add(soldier);
 
-        SoldiersAmountChanged?.Invoke();
+            SoldiersAmountChanged?.Invoke();
+        }
+        else
+        {
+            AmountLimiterTriggered?.Invoke();
+        }
     }
 
     internal void RemoveAtSoldier(GameObject soldier)
@@ -89,7 +98,6 @@ public class SoldierSpawner : MonoBehaviour
 
     private void OnRunStarted()
     {
-        _soldierPrefab.GetComponent<SoldierShooting>().EquipGun(_defaultGun);
         AddSoldier();
     }
 

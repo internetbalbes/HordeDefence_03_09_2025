@@ -1,14 +1,11 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(RoundDurationDisplay))]
-
 public class RoundDuration : MonoBehaviour
 {
     [SerializeField] private Run _run;
 
-    public event UnityAction<int> RoundDurationChanged;
-    public UnityAction<int> Finished;
+    public event UnityAction Changed;
 
     private bool _isRunning = false;
 
@@ -28,7 +25,7 @@ public class RoundDuration : MonoBehaviour
 
             _roundDuration++;
 
-            RoundDurationChanged?.Invoke(_roundDuration);
+            Changed?.Invoke();
         }
     }
 
@@ -46,16 +43,17 @@ public class RoundDuration : MonoBehaviour
 
     private void OnRunStarted()
     {
+        _roundDuration = 0;
         _isRunning = true;
         _timer = 0f;
+        Changed?.Invoke();
     }
 
     private void OnRunStopped()
     {
-        Finished?.Invoke(_roundDuration);
         _isRunning = false;
         _timer = 0f;
         _roundDuration = 0;
-        RoundDurationChanged?.Invoke(_roundDuration);
+        Changed?.Invoke();
     }
 }

@@ -14,6 +14,11 @@ public class Run : MonoBehaviour
 
     public static Run Instance;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     internal void StartRun()
     {
         Started?.Invoke();

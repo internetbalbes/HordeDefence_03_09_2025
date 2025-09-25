@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 public class Wallet : MonoBehaviour
 {
-    [SerializeField] private RoundDuration _roundDuration;
+    [SerializeField] private RoundScore _roundScore;
 
     [SerializeField] private int _money = 0;
 
@@ -32,11 +32,11 @@ public class Wallet : MonoBehaviour
 
     private void OnEnable()
     {
-        _roundDuration.Finished += Add;
+        _roundScore.Finished += Add;
     }
 
     private void OnDisable()
     {
-        _roundDuration.Finished -= Add;
+        _roundScore.Finished -= Add;
     }
 }
